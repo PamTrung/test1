@@ -1,0 +1,27 @@
+package Phan8;
+import java.net.*;
+import java.io.*;
+
+public class NetworkServerTest extends NetworkServer {
+	public NetworkServerTest(int port){
+		super(port);
+}
+	protected void handleConnection(Socket socket)
+	throws IOException{
+		PrintWriter out = SocketUtils.getWriter(socket);
+		BufferedReader in = SocketUtils.getReader(socket);
+		System.out.printf
+		("Generic Server: got connetion from %s%n with first line '%s'.'%n'",
+				socket.getInetAddress().getHostName(),
+				in.readLine());
+		out.println("Generic Server");
+		socket.close();
+	}
+
+	public static void main(String[] args) throws IOException {
+		int port = 8081;
+		NetworkServerTest tester = new NetworkServerTest(port);
+		tester.listen();
+	}
+
+}
